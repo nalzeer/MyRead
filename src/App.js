@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {Route} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book'
 import bookShelf from './bookShelf'
 import Search from './Search'
-import {Route} from 'react-router-dom'
+
 
 class BooksApp extends React.Component {
   state = {
@@ -13,7 +15,7 @@ class BooksApp extends React.Component {
 
  componentDidMount() {
    BooksAPI.getAll().then((books) => {
-      this.setState({books: books})
+      this.setState({ books })
     })
  }
 
@@ -33,29 +35,27 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const currentlyReading = this.state.books.filter((book) => book.shelfTitle === 'currentlyReading')
-    const wantToRead = this.state.books.filter((book) => book.shelfTitle === 'wantToRead')
-    const read = this.state.books.filter((book) => book.shelfTitle === 'read')
-
     return (
       <div className="app">
-        <Route path="/" exact render={() => (
+        <Route exact path="/" render={() => (
           <div>
             <div className="list-books-title">
               <h1>myReadings</h1>
             </div>
-            <bookShelf
-                currentlyReading={currentlyReading}
-                wantToRead={wantToRead}
-                read={read}
-                changeShelf={this.changeShelf}/>
+            <div className="list-books-content">
+              <bookShelf TitleOfShelf='Currently Reading' listOfBooks={this.props.currentlyReading} changeShelf={this.props.changeShelf}/>
+              <bookShelf TitleOfShelf='Want to Read' listOfBooks={this.props.wantToRead} changeShelf={this.props.changeShelf}/>
+              <bookShelf TitleOfShelf='Read' listOfBooks={this.props.read} changeShelf={this.props.changeShelf}/>
+            </div>
+            <div className="open-search">
+              <Link to="/search">Add a book</Link>
+            </div>
           </div>
         )}/>
-        <Route path="/search" render={({history}) => (
+        <Route exact path="/search" render={({history}) => (
           <Search
             changeShelf={this.changeShelf}
-            history={history}
-            books={currentlyReading.concat(wantToRead, read)}
+            books={this.state.books}
           />
         )}/>
       </div>
