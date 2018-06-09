@@ -1,5 +1,5 @@
 import React, { Componant } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import Book from './Book'
 
 function bookShelf (props) {

@@ -1,15 +1,15 @@
 import React, {Componant} from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import bookShelf from'./bookShelf'
 import * as BooksAPI from './BooksAPI'
 
 class Search extends React.Componant {
   // static propTypes = {
-  //   listBooks: PropTypes.array.isRequired,
+  //   books: PropTypes.array.isRequired,
   //   onChange: PropTypes.func.isRequired
   // }
-
   state = {
     bookResults: [],
     query: ''
@@ -17,10 +17,10 @@ class Search extends React.Componant {
 
   updateSearch = (query) => {
     this.setState({query: query.trim()})
-    if (!query) {
+    if (query === 0) {
       this.setState({bookResults: []})
     }
-    if (query){
+    if (query !== 0){
       BooksAPI.search(query, 10).then(bookResults => {
         if (bookResults.error) {
           bookResults = []

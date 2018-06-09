@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import {Route} from 'react-router-dom'
 import {Link} from 'react-router-dom'
+// import {PropTypes} from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Book from './Book'
+// import Book from './Book'
 import bookShelf from './bookShelf'
 import Search from './Search'
 
