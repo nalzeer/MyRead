@@ -1,6 +1,5 @@
 import React, { Componant } from 'react'
-// import PropTypes from 'prop-types'
-import Book from './Book'
+import Book from './Book.js'
 
 function bookShelf (props) {
   return(
@@ -9,7 +8,7 @@ function bookShelf (props) {
       <div className="bookshelf-books">
         <ol classNmae="books-grid">
           {
-            this.props.listOfBooks.map((book) => {
+            props.listOfBooks.map((book) => {
               return <li key={book.id}>
                 <Book book={book} changeShelf={props.changeShelf}/>
               </li>

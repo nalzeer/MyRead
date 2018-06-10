@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {Route} from 'react-router-dom'
 import {Link} from 'react-router-dom'
-// import {PropTypes} from 'prop-types'
-import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI.js'
 import './App.css'
-// import Book from './Book'
-import bookShelf from './bookShelf'
-import Search from './Search'
+import Book from './Book.js'
+import bookShelf from './bookShelf.js'
+import Search from './Search.js'
 
 
 class BooksApp extends React.Component {
@@ -21,27 +20,26 @@ class BooksApp extends React.Component {
  }
 
   changeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(
-      this.setState(sate => (
-        {books: this.state.books.map(bk => {
-          if(bk.id === book.id) {
-            bk.shelf = shelf
-            return book
-          } else {
-            return bk
-          }
-        })}
-      ))
-    )
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf
+      this.setState(state => ({books: this.state.books.filter(b => b.id !== book.id).concat([book])}))
+
+    })
   }
 
   render() {
     return (
       <div className="app">
+        <Route exact path="/search" render={({history}) => (
+          <Search
+           changeShelf={this.changeShelf}
+           books={this.state.books}
+          />
+        )}/>
         <Route exact path="/" render={() => (
           <div>
             <div className="list-books-title">
-              <h1>myReadings</h1>
+              <h1>myReads</h1>
             </div>
             <div className="list-books-content">
               <bookShelf TitleOfShelf='Currently Reading' listOfBooks={this.props.currentlyReading} changeShelf={this.props.changeShelf}/>
@@ -52,12 +50,6 @@ class BooksApp extends React.Component {
               <Link to="/search">Add a book</Link>
             </div>
           </div>
-        )}/>
-        <Route exact path="/search" render={({history}) => (
-          <Search
-            changeShelf={this.changeShelf}
-            books={this.state.books}
-          />
         )}/>
       </div>
     )
