@@ -11,7 +11,7 @@ class BookShelf extends React.Component {
             {
               this.props.listofbooks.map((book) => {
                 return <li key={book.id}>
-                  <Book book={this.props.book} changeShelf={this.props.changeShelf}/>
+                  <Book book={book} changeShelf={this.props.changeShelf}/>
                 </li>
               })
             }
