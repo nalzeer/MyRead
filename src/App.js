@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import {Route} from 'react-router-dom'
-import {Link} from 'react-router-dom'
-import * as BooksAPI from './BooksAPI.js'
+import {Route, Link} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Book from './Book.js'
-import bookShelf from './bookShelf.js'
-import Search from './Search.js'
+import Book from './Book'
+import bookShelf from './bookShelf'
+import SearchBooks from './SearchBooks'
 
 
 class BooksApp extends React.Component {
@@ -29,29 +29,26 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        <Route exact path="/search" render={({history}) => (
-          <Search
-           changeShelf={this.changeShelf}
-           books={this.state.books}
-          />
-        )}/>
-        <Route exact path="/" render={() => (
-          <div>
-            <div className="list-books-title">
-              <h1>myReads</h1>
+      <BrowserRouter>
+        <div className="app">
+          <Route exact path="/search" render={() => (<SearchBooks books={this.state.books} changeShelf={this.changeShelf} />)}/>
+          <Route exact path="/" render={() => (
+            <div>
+              <div className="list-books-title">
+                <h1>myReads</h1>
+              </div>
+              <div className="list-books-content">
+                <bookShelf TitleOfShelf='Currently Reading' listOfBooks={this.props.currentlyReading} changeShelf={this.props.changeShelf}/>
+                <bookShelf TitleOfShelf='Want to Read' listOfBooks={this.props.wantToRead} changeShelf={this.props.changeShelf}/>
+                <bookShelf TitleOfShelf='Read' listOfBooks={this.props.read} changeShelf={this.props.changeShelf}/>
+              </div>
+              <div className="open-search">
+                <Link to="/search">Add a book</Link>
+              </div>
             </div>
-            <div className="list-books-content">
-              <bookShelf TitleOfShelf='Currently Reading' listOfBooks={this.props.currentlyReading} changeShelf={this.props.changeShelf}/>
-              <bookShelf TitleOfShelf='Want to Read' listOfBooks={this.props.wantToRead} changeShelf={this.props.changeShelf}/>
-              <bookShelf TitleOfShelf='Read' listOfBooks={this.props.read} changeShelf={this.props.changeShelf}/>
-            </div>
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
-          </div>
-        )}/>
-      </div>
+          )}/>
+        </div>
+      </BrowserRouter>
     )
   }
 }
