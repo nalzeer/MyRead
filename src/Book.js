@@ -5,12 +5,12 @@ class Book extends React.Component {
     this.props.changeShelf(this.props.book, e.target.value)
   }
   render() {
-    const {book} = this.props.book
+    const {book} = this.props
 
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${ book.imageLinks.thumbnail }")` }}></div>
           <div className="book-shelf-changer">
             <select defaultValue={book.shelf} onChange={this.changeBook}>
               <option value="" disabled>Move to...</option>
