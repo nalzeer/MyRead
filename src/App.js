@@ -27,20 +27,19 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const listofbooks = this.props.listofbooks
     return (
       <BrowserRouter>
         <div className="app">
-          <Route exact path="/search" render={() => (<SearchBooks bookResults={this.state.books} onChange={this.props.updateSearch} />)}/>
+          <Route exact path="/search" render={() => (<SearchBooks books={this.state.books} onChange={this.changeShelf}/>)}/>
           <Route exact path="/" render={() => (
             <div>
               <div className="list-books-title">
                 <h1>myReads</h1>
               </div>
               <div className="list-books-content">
-                <BookShelf titleofshelf='Currently Reading' listofbooks={this.state.books.filter((book) => book.shelf === 'currentlyReading')} changeShelf={this.props.changeShelf}/>
-                <BookShelf titleofshelf='Want to Read' listofbooks={this.state.books.filter((book) => book.shelf === 'wantToRead')} changeShelf={this.props.changeShelf}/>
-                <BookShelf titleofshelf='Read' listofbooks={this.state.books.filter((book) => book.shelf === 'read')} changeShelf={this.props.changeShelf}/>
+                <BookShelf books={this.state.books.filter((book) => book.shelf === 'currentlyReading')} onChange={this.changeShelf}/>
+                <BookShelf books={this.state.books.filter((book) => book.shelf === 'wantToRead')} onChange={this.changeShelf}/>
+                <BookShelf books={this.state.books.filter((book) => book.shelf === 'read')} onChange={this.changeShelf}/>
               </div>
               <div className="open-search">
                 <Link to="/search">Add a book</Link>
