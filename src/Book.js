@@ -1,4 +1,4 @@
-import React, {Componant} from 'react'
+import React from 'react'
 
 class Book extends React.Component {
   changeBook = (e) => {
@@ -8,7 +8,7 @@ class Book extends React.Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${ this.props.book.imageLinks.smallThumbnail }")`}}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: this.props.book.imageLinks ? 'url('+this.props.book.imageLinks.smallThumbnail+')': '' }}></div>
           <div className="book-shelf-changer">
             <select defaultValue={this.props.book.shelf} onChange={this.props.changeBook}>
               <option value="" disabled>Move to...</option>
