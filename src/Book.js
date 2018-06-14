@@ -1,16 +1,18 @@
 import React from 'react'
 
 class Book extends React.Component {
+  state = {}
   changeBook = (e) => {
     this.props.changeShelf(this.props.book, e.target.value)
   }
   render() {
+    const {book} = this.props
     return (
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: this.props.book.imageLinks ? 'url('+this.props.book.imageLinks.smallThumbnail+')': '' }}></div>
           <div className="book-shelf-changer">
-            <select defaultValue={this.props.book.shelf} onChange={this.props.changeBook}>
+            <select defaultValue={book.shelf} onChange={this.changeBook}>
               <option value="" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
