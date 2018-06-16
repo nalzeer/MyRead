@@ -2,12 +2,11 @@ import React from 'react'
 import Book from './Book'
 
 class BookShelf extends React.Component {
-  state = {}
   render() {
-    const {books, changeShelf} = this.props
+    const {title, books, changeShelf} = this.props
     return(
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.title}</h2>
+        <h2 className="bookshelf-title">{title}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             {

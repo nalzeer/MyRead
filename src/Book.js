@@ -1,7 +1,6 @@
 import React from 'react'
 
 class Book extends React.Component {
-  state = {}
   changeBook = (e) => {
     this.props.changeShelf(this.props.book, e.target.value)
   }
@@ -10,7 +9,7 @@ class Book extends React.Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: this.props.book.imageLinks ? 'url('+this.props.book.imageLinks.smallThumbnail+')': '' }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.imageLinks ? 'url('+book.imageLinks.smallThumbnail+')': '' }}></div>
           <div className="book-shelf-changer">
             <select defaultValue={book.shelf} onChange={this.changeBook}>
               <option value="" disabled>Move to...</option>
